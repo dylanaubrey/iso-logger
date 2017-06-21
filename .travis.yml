@@ -12,4 +12,5 @@ addons:
     token:
       secure: $SONAR_TOKEN
 script:
+  - npm test
   - sonar-scanner
