@@ -8,7 +8,7 @@ cache:
     - "node_modules"
 addons:
   sonarcloud:
-    organization: "dylanaubrey"
+    organization: "dylanaubrey-github"
     token:
       secure: $SONAR_TOKEN
 script:
