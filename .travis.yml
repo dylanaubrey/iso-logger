@@ -4,3 +4,10 @@ node_js:
 cache:
   directories:
     - "node_modules"
+addons:
+  sonarqube:
+    organization: "dylanaubrey"
+    token:
+      secure: SONAR_TOKEN
+script:
+  - sonar-scanner
