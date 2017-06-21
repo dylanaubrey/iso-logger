@@ -10,6 +10,6 @@ addons:
   sonarcloud:
     organization: "dylanaubrey"
     token:
-      secure: SONAR_TOKEN
+      secure: $SONAR_TOKEN
 script:
   - sonar-scanner
