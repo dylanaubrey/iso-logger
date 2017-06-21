@@ -1,0 +1,55 @@
+{
+  "name": "iso-logger",
+  "version": "0.0.1",
+  "description": "An isomorphic logger that uses Winston on the server and console on the client.",
+  "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
+  "license": "MIT",
+  "main": "lib/main/index.js",
+  "module": "lib/module/index.js",
+  "browser": "lib/browser/index.js",
+  "keywords": [
+    "console",
+    "isomorphic",
+    "logger",
+    "logging",
+    "winston"
+  ],
+  "scripts": {
+    "build": "npm run validate && npm run transpile",
+    "clean": "rimraf lib/*",
+    "lint": "eslint . --fix",
+    "test": "cross-env BABEL_ENV=test nyc mocha test/specs/index.js",
+    "transpile": "npm run clean && npm run transpile:browser && npm run transpile:main && npm run transpile:module",
+    "transpile:browser": "cross-env BABEL_ENV=browser babel src --out-dir lib/browser --copy-files",
+    "transpile:main": "cross-env BABEL_ENV=main babel src --out-dir lib/main --copy-files",
+    "transpile:module": " cross-env BABEL_ENV=module babel src --out-dir lib/module --copy-files",
+    "validate": "npm run lint && npm run test"
+  },
+  "dependencies": {
+    "winston": "^2.3.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-eslint": "^7.2.3",
+    "babel-plugin-istanbul": "^4.1.3",
+    "babel-preset-env": "^1.5.2",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "chai": "^4.0.2",
+    "cross-env": "^4.0.0",
+    "dirty-chai": "^2.0.0",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
+    "express": "^4.15.3",
+    "mocha": "^3.4.2",
+    "nyc": "^10.3.2",
+    "rimraf": "^2.6.1",
+    "sinon": "^2.3.4",
+    "sinon-chai": "^2.11.0",
+    "supertest": "^3.0.0"
+  }
+}
