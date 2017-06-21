@@ -4,6 +4,14 @@
   "description": "An isomorphic logger that uses Winston on the server and console on the client.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
+  "homepage": "https://github.com/dylanaubrey/iso-logger",
+  "bugs": {
+    "url": "https://github.com/dylanaubrey/iso-logger/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:dylanaubrey/iso-logger.git"
+  },
   "main": "lib/main/index.js",
   "module": "lib/module/index.js",
   "browser": "lib/browser/index.js",
@@ -18,6 +26,7 @@
     "build": "npm run validate && npm run transpile",
     "clean": "rimraf lib/*",
     "lint": "eslint . --fix",
+    "prepublish": "npm run build",
     "test": "cross-env BABEL_ENV=test nyc mocha test/specs/index.js",
     "transpile": "npm run clean && npm run transpile:browser && npm run transpile:main && npm run transpile:module",
     "transpile:browser": "cross-env BABEL_ENV=browser babel src --out-dir lib/browser --copy-files",
