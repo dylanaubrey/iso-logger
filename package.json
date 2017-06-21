@@ -27,7 +27,7 @@
     "clean": "rimraf lib/*",
     "coverage": "cross-env BABEL_ENV=test nyc mocha test/specs/index.js",
     "lint": "eslint . --fix",
-    "prepublish": "npm run build",
+    "publish:pkg": "npm run build && npm publish",
     "test": "npm run lint && npm run coverage",
     "transpile": "npm run clean && npm run transpile:browser && npm run transpile:main && npm run transpile:module",
     "transpile:browser": "cross-env BABEL_ENV=browser babel src --out-dir lib/browser --copy-files",
