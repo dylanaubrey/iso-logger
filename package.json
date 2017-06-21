@@ -23,16 +23,16 @@
     "winston"
   ],
   "scripts": {
-    "build": "npm run validate && npm run transpile",
+    "build": "npm run test && npm run transpile",
     "clean": "rimraf lib/*",
+    "coverage": "cross-env BABEL_ENV=test nyc mocha test/specs/index.js",
     "lint": "eslint . --fix",
     "prepublish": "npm run build",
-    "test": "cross-env BABEL_ENV=test nyc mocha test/specs/index.js",
+    "test": "npm run lint && npm run coverage",
     "transpile": "npm run clean && npm run transpile:browser && npm run transpile:main && npm run transpile:module",
     "transpile:browser": "cross-env BABEL_ENV=browser babel src --out-dir lib/browser --copy-files",
     "transpile:main": "cross-env BABEL_ENV=main babel src --out-dir lib/main --copy-files",
-    "transpile:module": " cross-env BABEL_ENV=module babel src --out-dir lib/module --copy-files",
-    "validate": "npm run lint && npm run test"
+    "transpile:module": " cross-env BABEL_ENV=module babel src --out-dir lib/module --copy-files"
   },
   "dependencies": {
     "winston": "^2.3.1"
