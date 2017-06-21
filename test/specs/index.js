@@ -114,7 +114,7 @@ describe('when the winston logger logs information', () => {
       const app = express();
       app.use(logger.requests(['method', 'path', 'readable']));
 
-      app.get('/', (res) => {
+      app.get('/', (req, res) => {
         res.status(200).json({ test: 'successful' });
       });
 
