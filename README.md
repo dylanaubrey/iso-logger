@@ -8,3 +8,26 @@ An isomorphic logger that uses Winston on the server and console on the client.
 
 [![NPM](https://nodei.co/npm/iso-logger.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/iso-logger/)
 [![NPM](https://nodei.co/npm-dl/iso-logger.png?months=3&height=2)](https://nodei.co/npm/iso-logger/)
+
+## Installation
+```
+npm install iso-logger --save
+```
+
+## Initialisation
+```javascript
+// logger/index.js
+import Logger from 'iso-logger';
+
+const level = process.env.NODE_ENV === 'production' ? 'warn' : 'debug';
+const env = process.env.TARGET_ENV === 'web' ? 'web' : 'node';
+export default new Logger({ consoleOptions: { level }, env, winstonOptions: { level } });
+```
+
+## Usage
+```javascript
+// module/index.js
+import logger from './logger';
+
+logger.error('Oops, something went wrong...');
+```
