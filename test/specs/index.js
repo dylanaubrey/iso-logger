@@ -54,6 +54,22 @@ describe('when neither "node" nor "web" is passed in as the "env" argument', () 
   });
 });
 
+describe('when "newInstance" is not passed in as an argument', () => {
+  it('should return the same instance of the Logger class', () => {
+    const logger = new Logger({ env: 'node' });
+    const instance = new Logger();
+    expect(logger).to.eql(instance);
+  });
+});
+
+describe('when "true" is passed in as the "newInstance" argument', () => {
+  it('should return the same instance of the Logger class', () => {
+    const logger = new Logger({ env: 'node' });
+    const instance = new Logger({ env: 'web', newInstance: true });
+    expect(logger).not.to.eql(instance);
+  });
+});
+
 describe('when the winston logger logs information', () => {
   let logger, logStub;
 
