@@ -10,10 +10,10 @@ import Logger from '../../src';
 chai.use(dirtyChai);
 chai.use(sinonChai);
 
-describe('when "server" is passed in as the "env" argument', () => {
+describe('when "node" is passed in as the "env" argument', () => {
   describe('when no winstonOptions are passed in', () => {
     it('should create an instance of the winston logger with the default options', () => {
-      const logger = new Logger({ env: 'server' });
+      const logger = new Logger({ env: 'node' });
       expect(logger._client instanceof winston.Logger).to.be.true();
       expect(logger._client.exitOnError).to.eql(false);
       expect(logger._client.level).to.eql('info');
@@ -31,7 +31,7 @@ describe('when "server" is passed in as the "env" argument', () => {
     };
 
     it('should create an instance of the winston logger with the merged options', () => {
-      const logger = new Logger({ env: 'server', winstonOptions });
+      const logger = new Logger({ env: 'node', winstonOptions });
       expect(logger._client.exitOnError).to.eql(false);
       expect(logger._client.level).to.eql('error');
       expect(Object.keys(logger._client.transports)).to.eql(['file']);
@@ -39,17 +39,17 @@ describe('when "server" is passed in as the "env" argument', () => {
   });
 });
 
-describe('when "browser" is passed in as the "env" argument', () => {
+describe('when "web" is passed in as the "env" argument', () => {
   it('should create an instance of the console logger with the default options', () => {
-    const logger = new Logger({ env: 'browser' });
+    const logger = new Logger({ env: 'web' });
     expect(logger._client._console).to.eql(console);
   });
 });
 
-describe('when neither "server" nor "browser" is passed in as the "env" argument', () => {
+describe('when neither "node" nor "web" is passed in as the "env" argument', () => {
   it('should throw an error', () => {
     expect(() => new Logger()).to.throw(
-      'iso-logger: expecting "env" argument to be set to "server" or "browser"',
+      'iso-logger: expecting "env" argument to be set to "node" or "web"',
     );
   });
 });
@@ -58,7 +58,7 @@ describe('when the winston logger logs information', () => {
   let logger, logStub;
 
   before(() => {
-    logger = new Logger({ env: 'server' });
+    logger = new Logger({ env: 'node' });
   });
 
   beforeEach(() => {
@@ -134,7 +134,7 @@ describe('when the console logger logs information', () => {
   let logger, logSpy;
 
   before(() => {
-    logger = new Logger({ env: 'browser' });
+    logger = new Logger({ env: 'web' });
   });
 
   beforeEach(() => {

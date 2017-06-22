@@ -89,14 +89,14 @@ export default class Logger {
     let logger;
 
     switch (env) {
-      case 'server':
+      case 'node':
         logger = this._initializeWinston(winstonOptions);
         break;
-      case 'browser':
+      case 'web':
         logger = this._initializeConsole(consoleOptions);
         break;
       default:
-        throw new Error('iso-logger: expecting "env" argument to be set to "server" or "browser"');
+        throw new Error('iso-logger: expecting "env" argument to be set to "node" or "web"');
     }
 
     return logger;
