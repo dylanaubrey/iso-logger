@@ -31,7 +31,7 @@ describe('when "node" is passed in as the "env" argument', () => {
     };
 
     it('should create an instance of the winston logger with the merged options', () => {
-      const logger = new Logger({ env: 'node', winstonOptions });
+      const logger = new Logger({ env: 'node', newInstance: true, winstonOptions });
       expect(logger._client.exitOnError).to.eql(false);
       expect(logger._client.level).to.eql('error');
       expect(Object.keys(logger._client.transports)).to.eql(['file']);
@@ -41,14 +41,14 @@ describe('when "node" is passed in as the "env" argument', () => {
 
 describe('when "web" is passed in as the "env" argument', () => {
   it('should create an instance of the console logger with the default options', () => {
-    const logger = new Logger({ env: 'web' });
+    const logger = new Logger({ env: 'web', newInstance: true });
     expect(logger._client._console).to.eql(console);
   });
 });
 
 describe('when neither "node" nor "web" is passed in as the "env" argument', () => {
   it('should throw an error', () => {
-    expect(() => new Logger()).to.throw(
+    expect(() => new Logger({ newInstance: true })).to.throw(
       'iso-logger: expecting "env" argument to be set to "node" or "web"',
     );
   });
@@ -58,7 +58,7 @@ describe('when the winston logger logs information', () => {
   let logger, logStub;
 
   before(() => {
-    logger = new Logger({ env: 'node' });
+    logger = new Logger({ env: 'node', newInstance: true });
   });
 
   beforeEach(() => {
@@ -134,7 +134,7 @@ describe('when the console logger logs information', () => {
   let logger, logSpy;
 
   before(() => {
-    logger = new Logger({ env: 'web' });
+    logger = new Logger({ env: 'web', newInstance: true });
   });
 
   beforeEach(() => {

@@ -1,3 +1,5 @@
+let instance;
+
 /**
  *
  * The iso logger
@@ -7,10 +9,16 @@ export default class Logger {
    *
    * @constructor
    * @param {Object} config
-   * @return {void}
+   * @return {Logger}
    */
-  constructor({ consoleOptions, env, winstonOptions } = {}) {
+  constructor({ consoleOptions, env, newInstance = false, winstonOptions } = {}) {
+    if (instance && !newInstance) {
+      return instance;
+    }
+
+    instance = this;
     this._client = this._initialize(env, consoleOptions, winstonOptions);
+    return instance;
   }
 
   /**
