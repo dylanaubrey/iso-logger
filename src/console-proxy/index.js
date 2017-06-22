@@ -54,6 +54,7 @@ export default class ConsoleProxy {
     const cmd = level === 'verbose' || level === 'debug' ? 'log' : level;
 
     if (this._levels[level] <= this._maxLevel) {
+      meta.level = level;
       meta.timestamp = new Date().toISOString();
       this._console[cmd](message, meta);
     }
