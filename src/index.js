@@ -11,13 +11,20 @@ export default class Logger {
    * @param {Object} config
    * @return {Logger}
    */
-  constructor({ consoleOptions, env, newInstance = false, winstonOptions } = {}) {
+  constructor({ consoleOptions, newInstance = false, winstonOptions } = {}) {
     if (instance && !newInstance) {
       return instance;
     }
 
+    if (process.env.WEB_ENV) {
+      const ConsoleProxy = require('./console-proxy').default; // eslint-disable-line global-require
+      this._client = this._initializeConsole(ConsoleProxy, consoleOptions);
+    } else {
+      const winston = require('winston'); // eslint-disable-line global-require
+      this._client = this._initializeWinston(winston, winstonOptions);
+    }
+
     instance = this;
-    this._client = this._initialize(env, consoleOptions, winstonOptions);
     return instance;
   }
 
@@ -62,11 +69,11 @@ export default class Logger {
   /**
    *
    * @private
+   * @param {Class} ConsoleProxy
    * @param {Object} [options]
    * @return {Object}
    */
-  _initializeConsole(options = {}) {
-    const ConsoleProxy = require('./console-proxy').default; // eslint-disable-line global-require
+  _initializeConsole(ConsoleProxy, options = {}) {
     const mergedOptions = { ...this._defaultConsoleOptions, ...options };
     return new ConsoleProxy(mergedOptions);
   }
@@ -74,40 +81,15 @@ export default class Logger {
   /**
    *
    * @private
+   * @param {Object} winston
    * @param {Object} [options]
    * @return {Logger}
    */
-  _initializeWinston(options = {}) {
-    const winston = require('winston'); // eslint-disable-line global-require
+  _initializeWinston(winston, options = {}) {
     const mergedOptions = this._mergeWinstonOptions(winston, options);
     const keys = Object.keys(mergedOptions.transports);
     const transports = keys.map(key => new winston.transports[key](mergedOptions.transports[key]));
     return new winston.Logger({ ...mergedOptions, ...{ transports } });
-  }
-
-  /**
-   *
-   * @private
-   * @param {string} env
-   * @param {Object} [consoleOptions]
-   * @param {Object} [winstonOptions]
-   * @return {Object|Logger}
-   */
-  _initialize(env, consoleOptions, winstonOptions) {
-    let logger;
-
-    switch (env) {
-      case 'node':
-        logger = this._initializeWinston(winstonOptions);
-        break;
-      case 'web':
-        logger = this._initializeConsole(consoleOptions);
-        break;
-      default:
-        throw new Error('iso-logger: expecting "env" argument to be set to "node" or "web"');
-    }
-
-    return logger;
   }
 
   /**

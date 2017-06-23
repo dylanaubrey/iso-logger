@@ -10,10 +10,10 @@ import Logger from '../../src';
 chai.use(dirtyChai);
 chai.use(sinonChai);
 
-describe('when "node" is passed in as the "env" argument', () => {
+describe('when WEB_ENV variable is not set to "true"', () => {
   describe('when no winstonOptions are passed in', () => {
     it('should create an instance of the winston logger with the default options', () => {
-      const logger = new Logger({ env: 'node' });
+      const logger = new Logger();
       expect(logger._client instanceof winston.Logger).to.be.true();
       expect(logger._client.exitOnError).to.eql(false);
       expect(logger._client.level).to.eql('info');
@@ -31,7 +31,7 @@ describe('when "node" is passed in as the "env" argument', () => {
     };
 
     it('should create an instance of the winston logger with the merged options', () => {
-      const logger = new Logger({ env: 'node', newInstance: true, winstonOptions });
+      const logger = new Logger({ newInstance: true, winstonOptions });
       expect(logger._client.exitOnError).to.eql(false);
       expect(logger._client.level).to.eql('error');
       expect(Object.keys(logger._client.transports)).to.eql(['file']);
@@ -39,24 +39,18 @@ describe('when "node" is passed in as the "env" argument', () => {
   });
 });
 
-describe('when "web" is passed in as the "env" argument', () => {
+describe('when WEB_ENV variable is set to "true"', () => {
   it('should create an instance of the console logger with the default options', () => {
-    const logger = new Logger({ env: 'web', newInstance: true });
+    process.env.WEB_ENV = true;
+    const logger = new Logger({ newInstance: true });
     expect(logger._client._console).to.eql(console);
-  });
-});
-
-describe('when neither "node" nor "web" is passed in as the "env" argument', () => {
-  it('should throw an error', () => {
-    expect(() => new Logger({ newInstance: true })).to.throw(
-      'iso-logger: expecting "env" argument to be set to "node" or "web"',
-    );
+    process.env.WEB_ENV = false;
   });
 });
 
 describe('when "newInstance" is not passed in as an argument', () => {
   it('should return the same instance of the Logger class', () => {
-    const logger = new Logger({ env: 'node' });
+    const logger = new Logger();
     const instance = new Logger();
     expect(logger).to.eql(instance);
   });
@@ -64,8 +58,8 @@ describe('when "newInstance" is not passed in as an argument', () => {
 
 describe('when "true" is passed in as the "newInstance" argument', () => {
   it('should return the same instance of the Logger class', () => {
-    const logger = new Logger({ env: 'node' });
-    const instance = new Logger({ env: 'web', newInstance: true });
+    const logger = new Logger();
+    const instance = new Logger({ newInstance: true });
     expect(logger).not.to.eql(instance);
   });
 });
@@ -74,7 +68,7 @@ describe('when the winston logger logs information', () => {
   let logger, logStub;
 
   before(() => {
-    logger = new Logger({ env: 'node', newInstance: true });
+    logger = new Logger({ newInstance: true });
   });
 
   beforeEach(() => {
@@ -150,7 +144,12 @@ describe('when the console logger logs information', () => {
   let logger, logSpy;
 
   before(() => {
-    logger = new Logger({ env: 'web', newInstance: true });
+    process.env.WEB_ENV = true;
+    logger = new Logger({ newInstance: true });
+  });
+
+  after(() => {
+    process.env.WEB_ENV = false;
   });
 
   beforeEach(() => {
