@@ -16,18 +16,46 @@ npm install iso-logger --save
 
 ## Initialisation
 ```javascript
+// package.json
+"scripts": {
+  "bundle:node": "cross-env NODE_ENV=development webpack"
+  "bundle:web": "cross-env NODE_ENV=development WEB_ENV=true webpack"
+}
+```
+```javascript
+// package.json
+plugins: [
+  new webpack.EnvironmentPlugin(['NODE_ENV', 'WEB_ENV']),
+]
+```
+```javascript
 // logger/index.js
 import Logger from 'iso-logger';
 
 const level = process.env.NODE_ENV === 'production' ? 'warn' : 'debug';
-const env = process.env.TARGET_ENV === 'web' ? 'web' : 'node';
-export default new Logger({ consoleOptions: { level }, env, winstonOptions: { level } });
+export default new Logger({ consoleOptions: { level }, winstonOptions: { level } });
 ```
 
 ## Usage
+```javascript
+// server.js
+import logger from './logger';
+
+app.use(logger.requests(['cookies', 'headers', 'method']))
+```
 ```javascript
 // module/index.js
 import logger from './logger';
 
 logger.error('Oops, something went wrong...');
+logger.warn('Beware the fury of a patient man.');
+logger.info('It is a very sad thing that nowadays there is so little useless information.');
+
+logger.verbose(
+  `How doth the little crocodile improve his shining tail. And pour
+  the waters of the Nile, on every golden scale. How cheerfully he seems to grin, how
+  neatly spreads his claws. And welcomes little fishes in, with gently smiling jaws.`
+);
+
+logger.debug('There are only two hard problems in Computer Science: cache invalidation and naming things.');
 ```
