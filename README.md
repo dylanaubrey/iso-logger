@@ -25,7 +25,7 @@ npm install iso-logger --save
 }
 ```
 ```javascript
-// package.json
+// webpack.config.js
 plugins: [
   new webpack.EnvironmentPlugin(['NODE_ENV', 'WEB_ENV']),
 ]
