@@ -95,6 +95,22 @@ export default class Logger {
   /**
    *
    * @private
+   * @param {string} level
+   * @param {string} message
+   * @param {Object} meta
+   * @return {void}
+   */
+  _log(level, message, meta) {
+    if (process.env.ISO_LOG === 'false') {
+      return;
+    }
+
+    this._client.log(level, message, meta);
+  }
+
+  /**
+   *
+   * @private
    * @param {Object} winston
    * @param {Object} options
    * @return {Object}
@@ -145,7 +161,7 @@ export default class Logger {
    * @return {void}
    */
   debug(message, meta) {
-    this._client.log('debug', message, meta);
+    this._log('debug', message, meta);
   }
 
   /**
@@ -155,7 +171,7 @@ export default class Logger {
    * @return {void}
    */
   error(message, meta) {
-    this._client.log('error', message, meta);
+    this._log('error', message, meta);
   }
 
   /**
@@ -165,7 +181,7 @@ export default class Logger {
    * @return {void}
    */
   info(message, meta) {
-    this._client.log('info', message, meta);
+    this._log('info', message, meta);
   }
 
   /**
@@ -175,7 +191,7 @@ export default class Logger {
    * @return {void}
    */
   verbose(message, meta) {
-    this._client.log('verbose', message, meta);
+    this._log('verbose', message, meta);
   }
 
   /**
@@ -185,17 +201,17 @@ export default class Logger {
    * @return {void}
    */
   warn(message, meta) {
-    this._client.log('warn', message, meta);
+    this._log('warn', message, meta);
   }
 
   /**
    *
-   * @param {Array<string>} [requestFilter]
+   * @param {Object} [config]
    * @return {Function}
    */
-  requests(requestFilter = []) {
+  requests({ level = 'info', requestFilter = [] } = {}) {
     return (req, res, next) => {
-      this.info(req.url, this._setRequestMeta(requestFilter, req));
+      this[level](req.url, this._setRequestMeta(requestFilter, req));
       next();
     };
   }

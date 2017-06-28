@@ -122,7 +122,7 @@ describe('when the winston logger logs information', () => {
   describe('when it logs a request', () => {
     it('should call call the .log() method with the correct arguments', (done) => {
       const app = express();
-      app.use(logger.requests(['method', 'path', 'readable']));
+      app.use(logger.requests({ requestFilter: ['method', 'path', 'readable'] }));
 
       app.get('/', (req, res) => {
         res.status(200).json({ test: 'successful' });
