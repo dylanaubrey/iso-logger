@@ -14,8 +14,8 @@ describe('when WEB_ENV variable is not set to "true"', () => {
   describe('when no winstonOptions are passed in', () => {
     it('should create an instance of the winston logger with the default options', () => {
       const logger = new Logger();
-      expect(logger._client instanceof winston.Logger).to.be.true();
-      expect(logger._client.exitOnError).to.eql(false);
+      expect(logger._client).instanceof(winston.Logger);
+      expect(logger._client.exitOnError).to.be.false();
       expect(logger._client.level).to.eql('info');
       expect(Object.keys(logger._client.transports)).to.eql(['console']);
     });
@@ -32,7 +32,7 @@ describe('when WEB_ENV variable is not set to "true"', () => {
 
     it('should create an instance of the winston logger with the merged options', () => {
       const logger = new Logger({ newInstance: true, winstonOptions });
-      expect(logger._client.exitOnError).to.eql(false);
+      expect(logger._client.exitOnError).to.be.false();
       expect(logger._client.level).to.eql('error');
       expect(Object.keys(logger._client.transports)).to.eql(['file']);
     });
@@ -44,7 +44,7 @@ describe('when WEB_ENV variable is set to "true"', () => {
     process.env.WEB_ENV = true;
     const logger = new Logger({ newInstance: true });
     expect(logger._client._console).to.eql(console);
-    process.env.WEB_ENV = false;
+    delete process.env.WEB_ENV;
   });
 });
 
@@ -149,7 +149,7 @@ describe('when the console logger logs information', () => {
   });
 
   after(() => {
-    process.env.WEB_ENV = false;
+    delete process.env.WEB_ENV;
   });
 
   beforeEach(() => {
