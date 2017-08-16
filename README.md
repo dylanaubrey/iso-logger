@@ -8,9 +8,6 @@ An isomorphic logger that uses Winston on the server and console on the client.
 [![dependencies Status](https://david-dm.org/dylanaubrey/iso-logger/status.svg)](https://david-dm.org/dylanaubrey/iso-logger)
 [![devDependencies Status](https://david-dm.org/dylanaubrey/iso-logger/dev-status.svg)](https://david-dm.org/dylanaubrey/iso-logger?type=dev)
 
-[![NPM](https://nodei.co/npm/iso-logger.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/iso-logger/)
-[![NPM](https://nodei.co/npm-dl/iso-logger.png?months=3&height=2)](https://nodei.co/npm/iso-logger/)
-
 ## Installation
 ```
 npm install iso-logger --save
