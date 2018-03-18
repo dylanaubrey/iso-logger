@@ -16,6 +16,10 @@ An isomorphic logger that uses Winston on the server and console on the client.
 npm install iso-logger --save
 ```
 
+## Compilation
+
+The WEB_ENV environment variable must be set when you compile your browser bundle in order to exclude Winston from the build.
+
 ## Usage
 
 ```javascript
@@ -48,3 +52,7 @@ logger.debug('There are only two hard problems in Computer Science: cache invali
 ## Documentation
 
 Please read the documentation on the iso-logger [github pages](https://dylanaubrey.github.io/iso-logger).
+
+## License
+
+IsoLogger is MIT Licensed.
