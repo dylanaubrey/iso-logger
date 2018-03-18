@@ -18,8 +18,8 @@ npm install iso-logger --save
 
 ## Compilation
 
-The `WEB_ENV` environment variable must be set when you compile your browser bundle in order to exclude Winston from
-the build.
+The `WEB_ENV` environment variable must be set to `'true'` when you compile your browser bundle in order to exclude
+Winston from the build.
 
 ## Usage
 
