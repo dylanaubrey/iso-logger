@@ -1,49 +1,35 @@
 # iso-logger
+
 An isomorphic logger that uses Winston on the server and console on the client.
 
 [![Build Status](https://travis-ci.org/dylanaubrey/iso-logger.svg?branch=master)](https://travis-ci.org/dylanaubrey/iso-logger)
 [![codecov](https://codecov.io/gh/dylanaubrey/iso-logger/branch/master/graph/badge.svg)](https://codecov.io/gh/dylanaubrey/iso-logger)
+[![Quality Gate](https://sonarcloud.io/api/badges/gate?key=sonarqube:iso-logger)](https://sonarcloud.io/dashboard?id=sonarqube%3Aiso-logger)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![npm version](https://badge.fury.io/js/iso-logger.svg)](https://badge.fury.io/js/iso-logger)
 [![dependencies Status](https://david-dm.org/dylanaubrey/iso-logger/status.svg)](https://david-dm.org/dylanaubrey/iso-logger)
 [![devDependencies Status](https://david-dm.org/dylanaubrey/iso-logger/dev-status.svg)](https://david-dm.org/dylanaubrey/iso-logger?type=dev)
 
 ## Installation
-```
+
+```bash
 npm install iso-logger --save
 ```
 
-## Initialisation
+## Usage
+
 ```javascript
-// package.json
-"scripts": {
-  "bundle:node": "cross-env NODE_ENV=development webpack"
-  "bundle:web": "cross-env NODE_ENV=development WEB_ENV=true webpack"
-}
-```
-```javascript
-// webpack.config.js
-plugins: [
-  new webpack.EnvironmentPlugin(['NODE_ENV', 'WEB_ENV']),
-]
-```
-```javascript
-// logger/index.js
+// logger.js
+
 import Logger from 'iso-logger';
 
 const level = process.env.NODE_ENV === 'production' ? 'warn' : 'debug';
 export default new Logger({ consoleOptions: { level }, winstonOptions: { level } });
 ```
 
-## Usage
 ```javascript
-// server.js
-import logger from './logger';
+// module.js
 
-app.use(logger.requests(['cookies', 'headers', 'method']))
-```
-```javascript
-// module/index.js
 import logger from './logger';
 
 logger.error('Oops, something went wrong...');
@@ -59,4 +45,6 @@ logger.verbose(
 logger.debug('There are only two hard problems in Computer Science: cache invalidation and naming things.');
 ```
 
-### More to follow...
+## Documentation
+
+Please read the documentation on the iso-logger [github pages](https://dylanaubrey.github.io/iso-logger).
