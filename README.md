@@ -5,7 +5,7 @@ An isomorphic logger that uses Winston on the server and console on the client.
 [![Build Status](https://travis-ci.org/dylanaubrey/iso-logger.svg?branch=master)](https://travis-ci.org/dylanaubrey/iso-logger)
 [![codecov](https://codecov.io/gh/dylanaubrey/iso-logger/branch/master/graph/badge.svg)](https://codecov.io/gh/dylanaubrey/iso-logger)
 [![Quality Gate](https://sonarcloud.io/api/badges/gate?key=sonarqube:iso-logger)](https://sonarcloud.io/dashboard?id=sonarqube%3Aiso-logger)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/dylanaubrey/iso-logger/blob/master/LICENSE)
 [![npm version](https://badge.fury.io/js/iso-logger.svg)](https://badge.fury.io/js/iso-logger)
 [![dependencies Status](https://david-dm.org/dylanaubrey/iso-logger/status.svg)](https://david-dm.org/dylanaubrey/iso-logger)
 [![devDependencies Status](https://david-dm.org/dylanaubrey/iso-logger/dev-status.svg)](https://david-dm.org/dylanaubrey/iso-logger?type=dev)
@@ -56,4 +56,4 @@ Please read the documentation on the IsoLogger [github pages](https://dylanaubre
 
 ## License
 
-IsoLogger is MIT Licensed.
+IsoLogger is [MIT Licensed](https://github.com/dylanaubrey/iso-logger/blob/master/LICENSE).
