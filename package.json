@@ -1,6 +1,6 @@
 {
   "name": "iso-logger",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "An isomorphic logger that uses Winston on the server and console on the client.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
